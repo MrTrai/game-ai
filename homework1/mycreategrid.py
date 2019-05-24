@@ -43,7 +43,6 @@ def isCellIntersectObstacle(obstacles, corners):
             for cell_line in cell_lines:
                 intersect = rayTrace(cell_line[0], cell_line[1], obs_line)
                 if intersect is not None:
-                    print intersect
                     return True
 
     return False
