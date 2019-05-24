@@ -24,11 +24,66 @@ from utils import *
 from core import *
 
 # Creates a grid as a 2D array of True/False values (True =  traversable). Also returns the dimensions of the grid as a (columns, rows) list.
+import math
+
+
+def isCellIntersectObstacle(obstacles, corners):
+    lines = []
+    size = len(corners)
+    for i in range(size):
+        start = corners[i % size]
+        end = corners[(i + 1) % size]
+        lines.append(
+            (start, end)
+        )
+
+    for obs in obstacles:
+        obs_lines = obs.getLines()
+        for obs_line in obs_lines:
+            for line in lines:
+                intersect = rayTrace(line[0], line[1], obs_line)
+                if intersect is not None:
+                    print intersect
+                    return True
+
+    return False
+
+
+def isCornerInObstacle(obstacles, corners):
+    for corner in corners:
+        for obs in obstacles:
+            if pointInsidePolygonLines(corner, obs.getLines()):
+                return True
+    return False
+
+
 def myCreateGrid(world, cellsize):
-	grid = None
-	dimensions = (0, 0)
-	### YOUR CODE GOES BELOW HERE ###
+    grid = []
+    ### YOUR CODE GOES BELOW HERE ###
+    screen = world.getDimensions()
+    rows = int(math.ceil(screen[1] / cellsize))
+    cols = int(math.ceil(screen[0] / cellsize))
 
-	### YOUR CODE GOES ABOVE HERE ###
-	return grid, dimensions
+    dimensions = (cols, rows)
 
+    for col in range(cols):
+        grid.append([True for _ in range(rows)])
+
+
+    for col in range(cols):
+        col_start = int(col * cellsize)
+        col_end = int((col + 1) * cellsize)
+        for row in range(rows):
+            row_start = int(row * cellsize)
+            row_end = int((row + 1) * cellsize)
+            corner_1 = (col_start, row_start)
+            corner_2 = (col_start, row_end)
+            corner_3 = (col_end, row_start)
+            corner_4 = (col_end, row_end)
+            corners = [corner_1, corner_2, corner_3, corner_4]
+            if isCellIntersectObstacle(world.getObstacles(), corners) or \
+                    isCornerInObstacle(world.getObstacles(), corners):
+                grid[col][row] = False
+
+    ### YOUR CODE GOES ABOVE HERE ###
+    return grid, dimensions
