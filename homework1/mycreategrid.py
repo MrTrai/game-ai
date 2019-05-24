@@ -28,20 +28,20 @@ import math
 
 
 def isCellIntersectObstacle(obstacles, corners):
-    lines = []
+    cell_lines = []
     size = len(corners)
     for i in range(size):
         start = corners[i % size]
         end = corners[(i + 1) % size]
-        lines.append(
+        cell_lines.append(
             (start, end)
         )
 
     for obs in obstacles:
         obs_lines = obs.getLines()
         for obs_line in obs_lines:
-            for line in lines:
-                intersect = rayTrace(line[0], line[1], obs_line)
+            for cell_line in cell_lines:
+                intersect = rayTrace(cell_line[0], cell_line[1], obs_line)
                 if intersect is not None:
                     print intersect
                     return True
