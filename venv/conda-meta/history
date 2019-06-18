@@ -1,0 +1,18 @@
+==> 2019-05-30 08:41:07 <==
+# cmd: C:\Users\trait\Anaconda3\Scripts\conda-script.py create -p C:\Users\Public\Desktop\game-ai\venv -y python=2.7
+# conda version: 4.6.14
++defaults::certifi-2019.3.9-py27_0
++defaults::pip-19.1.1-py27_0
++defaults::python-2.7.16-hcb6e200_0
++defaults::setuptools-41.0.1-py27_0
++defaults::sqlite-3.28.0-h0c8e037_0
++defaults::vc-9-h7299396_1
++defaults::vs2008_runtime-9.00.30729.1-hfaea7d5_1
++defaults::wheel-0.33.4-py27_0
++defaults::wincertstore-0.2-py27hf04cefb_0
+# update specs: ['python=2.7']
+==> 2019-05-30 08:45:54 <==
+# cmd: C:\Users\trait\Anaconda3\Scripts\conda-script.py install -p C:/Users/Public/Desktop/game-ai/venv numpy==1.9.1 -y
+# conda version: 4.6.14
++defaults::numpy-1.9.1-py27_0
+# update specs: ['numpy==1.9.1']

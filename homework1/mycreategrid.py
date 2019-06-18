@@ -77,8 +77,8 @@ def myCreateGrid(world, cellsize):
             row_end = int((row + 1) * cellsize)
             corner_1 = (col_start, row_start)
             corner_2 = (col_start, row_end)
-            corner_3 = (col_end, row_start)
-            corner_4 = (col_end, row_end)
+            corner_3 = (col_end, row_end)
+            corner_4 = (col_end, row_start)
             corners = [corner_1, corner_2, corner_3, corner_4]
             if isCellIntersectObstacle(world.getObstacles(), corners) or \
                     isCornerInObstacle(world.getObstacles(), corners):
