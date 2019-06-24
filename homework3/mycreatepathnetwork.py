@@ -328,6 +328,47 @@ def sanityCheckTriangles(triangles, world, agent):
     return result
 
 
+def polyEdges(poly):
+    edges = []
+    length = len(poly)
+    for i in range(0, length):
+        start = poly[i]
+        end = poly[(i + 1) % length]
+        edges.append((start, end))
+    return edges
+
+
+def generatePathEdges2(polys, world, agent):
+    lines = []
+
+    for poly in polys:
+        edges = polyEdges(poly)
+        nodes = []
+        for edge in edges:
+            mid = midPoint(edge[0], edge[1])
+            nodes.append(mid)
+        for i in range(len(nodes)):
+            node1 = nodes[i]
+            for j in range(i + 1, len(nodes)):
+                node2 = nodes[j]
+                path_edge = (node1, node2)
+                valid = True
+                for obs in world.getObstacles():
+                    obs_edges = obs.getLines()
+                    for obs_edge in obs_edges:
+                        point1 = obs_edge[0]
+                        point2 = obs_edge[1]
+                        min_dist1 = minimumDistance(path_edge, point1)
+                        min_dist2 = minimumDistance(path_edge, point2)
+                        intersect = rayTrace(point1, point2, path_edge)
+
+                        if min_dist1 <= agent.getMaxRadius() or min_dist2 <= agent.getMaxRadius() or intersect:
+                            valid = False
+
+                if valid:
+                    lines.append((node1, node2))
+    return lines
+
 def generatePathEdges(pathnodes, world, agent):
     lines = []
     ### YOUR CODE GOES BELOW HERE ###
@@ -523,7 +564,6 @@ def myCreatePathNetwork(world, agent=None):
     polys, explored_index, num_big_polys = generatePolys(triangles, world)
     print "Explored: ", len(explored_index)
     print "Triangle: ", len(triangles)
-    # polys = mergePoly2(polys)
     nodes = generatePathNodes2(polys)
     edges = generatePathEdges(nodes, world, agent)
     return nodes, edges, polys
