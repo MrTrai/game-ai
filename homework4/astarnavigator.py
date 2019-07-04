@@ -220,7 +220,7 @@ def myUpdate(nav, delta):
     if not rayTest(agent_pos, dest, world, agent):
         network = nav.pathnetwork
         network_curr_pos = findClosestUnobstructed(agent_pos, nav.pathnodes, nav.world.getLinesWithoutBorders())
-        network_dest_pos = findClosestUnobstructed(nav.destination, nav.pathnodes, nav.world.getLinesWithoutBorders())
+        network_dest_pos = findClosestUnobstructed(dest, nav.pathnodes, nav.world.getLinesWithoutBorders())
         new_path, closed_nodes = astar(network_curr_pos, network_dest_pos, network)
         if new_path:
             nav.agent.moveTarget = new_path[0]
