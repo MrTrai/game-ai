@@ -108,7 +108,11 @@ def unobstructedNetwork(network, worldLines):
 
 
 def nextStates(curr_state, graph):
-    return graph[curr_state]
+    try:
+        states = graph[curr_state]
+    except Exception:
+        states = []
+    return states
 
 
 def euclideanDist(start, end):
@@ -171,27 +175,28 @@ def astar(init, goal, network):
             break
 
         for destination, cost in nextStates(curr_node, graph):
-            new_path = copy.copy(curr_path)
-            new_path.append(destination)
-            new_cost = curr_cost + cost + heuristic(destination, goal)
-            new_state = (new_cost, destination, new_path)
+            if destination and goal:
+                new_path = copy.copy(curr_path)
+                new_path.append(destination)
+                new_cost = curr_cost + cost + heuristic(destination, goal)
+                new_state = (new_cost, destination, new_path)
 
-            closed_dup = find_dup(closed, destination)
-            open_dup = find_dup(open.queue, destination)
+                closed_dup = find_dup(closed, destination)
+                open_dup = find_dup(open.queue, destination)
 
-            if closed_dup:
-                closed_cost, closed_node, closed_path = closed[closed_dup]
-                if new_cost < closed_cost:
-                    open.put(
-                        new_state
-                    )
-                    closed.remove(closed[closed_dup])
-            elif open_dup:
-                open_cost, open_node, open_path = open.queue[open_dup]
-                if new_cost < open_cost:
-                    open.queue[open_dup] = new_state
-            else:
-                open.put(new_state)
+                if closed_dup:
+                    closed_cost, closed_node, closed_path = closed[closed_dup]
+                    if new_cost < closed_cost:
+                        open.put(
+                            new_state
+                        )
+                        closed.remove(closed[closed_dup])
+                elif open_dup:
+                    open_cost, open_node, open_path = open.queue[open_dup]
+                    if new_cost < open_cost:
+                        open.queue[open_dup] = new_state
+                else:
+                    open.put(new_state)
 
         closed.append(curr_state)
 
