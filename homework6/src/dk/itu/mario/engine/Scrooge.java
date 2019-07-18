@@ -11,7 +11,6 @@ public class Scrooge extends PlayerProfile{
 	public double evaluateLevel(Level level)
 	{
 		int numCoins = 0;
-
 		int prevYMin = 12;
 		for (int x = 0; x<level.getWidth(); x++){
 			int currYMin = 12;
@@ -24,11 +23,9 @@ public class Scrooge extends PlayerProfile{
 						numCoins +=1;
 					}
 				}
-				
 			}
 			prevYMin = currYMin;
 		}
-		
 
 		double score = 0.0;
 		score = numCoins/100.0;

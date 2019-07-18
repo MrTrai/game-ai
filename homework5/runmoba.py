@@ -21,6 +21,7 @@ import sys, pygame, math, numpy, random, time, copy
 from pygame.locals import *
 
 from constants import *
+from NPCMinion import NPCMinion
 from utils import *
 from core import *
 from astarnavigator import *
@@ -52,10 +53,10 @@ class MyHumanMinion(MyMinion):
 	def __init__(self, position, orientation, world, image = NPC, speed = SPEED, viewangle = 360, hitpoints = HITPOINTS, firerate = FIRERATE, bulletclass = SmallBullet):
 		MyMinion.__init__(self, position, orientation, world, image, speed, viewangle, hitpoints, firerate, bulletclass)
 
-class MyAlienMinion(MyMinion):
+class MyAlienMinion(NPCMinion):
 	
 	def __init__(self, position, orientation, world, image = JACKAL, speed = SPEED, viewangle = 360, hitpoints = HITPOINTS, firerate = FIRERATE, bulletclass = SmallBullet):
-		MyMinion.__init__(self, position, orientation, world, image, speed, viewangle, hitpoints, firerate, bulletclass)
+		NPCMinion.__init__(self, position, orientation, world, image, speed, viewangle, hitpoints, firerate, bulletclass)
 
 ########################
 

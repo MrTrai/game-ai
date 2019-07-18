@@ -29,7 +29,7 @@ from mynavigatorhelpers import *
 import copy
 
 
-class MyMinion(Minion):
+class NPCMinion(Minion):
 
     def __init__(self, position, orientation, world, image=NPC, speed=SPEED, viewangle=360, hitpoints=HITPOINTS,
                  firerate=FIRERATE, bulletclass=SmallBullet):
@@ -62,8 +62,7 @@ class Idle(State):
         State.execute(self, delta)
         ### YOUR CODE GOES BELOW HERE ###
         npc = self.agent.world.getNPCsForTeam(self.agent.getTeam())
-        if len(npc) >= 15:
-            self.agent.changeState(MoveToEnemyTower)
+        self.agent.changeState(MoveToEnemyTower)
         ### YOUR CODE GOES ABOVE HERE ###
         return None
 
